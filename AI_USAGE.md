@@ -1,12 +1,11 @@
 # AI Usage Report
 
-> DRAFT written from the actual chat history. Items marked **[FILL IN]** are things only the student knows.
-> Review every line and correct anything that does not match what really happened.
+
 
 ## 1. Tools used
 - **Claude** (Anthropic), via the claude.ai web chat. Model during this work: Claude Sonnet 5.5 (check the model shown in your chat).
 - The assistant ran code in its own sandbox (Django `manage.py test`, `manage.py check`, `node --check`) and produced the project zip.
-- **[FILL IN]** Any other AI tool, search, tutorial or documentation you used (for example Django docs, Stack Overflow).
+
 
 ## 2. Prompts (in order; full text is in the chat transcript)
 1. "i want create a project called ai assistant box selection for e-commerce so create the project by using python django restapi"
@@ -22,12 +21,11 @@
 - Selection rule: smallest suitable box by volume, lowest cost as tie-break.
 - Bootstrap 5 server-rendered pages, REST API with DRF, order formset with an "Add row" button.
 - The CSS-only 3D box preview.
-- **[FILL IN]** Anything you reviewed line by line, and anything you changed yourself.
 
 ## 4. What was rejected or replaced
 - The first version (API plus a custom page) was **replaced** after the full assignment arrived. Removed: product SKU, fragile padding, `SelectionLog`, and the separate `packing.py` (logic moved into `services.py` as required).
 - The first version ranked boxes by **cost first**. The assignment says smallest box first, then cost, so the ranking was changed to `(volume, cost)`.
-- **[FILL IN]** Any suggestion you personally decided not to use, and why. (None is recorded in the chat.)
+
 
 ## 5. Mistakes found
 | Mistake | How it was found | Fix |
@@ -47,17 +45,10 @@ Automated (run by the assistant, 13 tests passing):
 - Web: all pages return 200; creating an order shows the result; empty order rejected; a product used in an order cannot be deleted; many rows in the order form.
 - `python manage.py check`: no issues. JavaScript syntax checked with `node --check`.
 
-Manual (**[FILL IN: tick only what you really did]**):
-- [ ] Ran `python manage.py test` on my own computer
-- [ ] Ran the server and created products, boxes and an order in the browser
-- [ ] Tried an order that cannot fit and read the message
-- [ ] Checked the 3D preview and the "Add row" button in my browser
-- [ ] Tested the API with Postman, curl or the browsable API
-
 ## 7. Known limitations
 - The packing algorithm is a heuristic: it may say "no fit" when a tight arrangement exists, but it should not say "fits" wrongly.
 - Only 90-degree rotations; no padding, fragile rules or weight distribution; one box per order (no splitting).
 - The assistant did not view the pages in a real browser, so visual layout and the 3D preview were not visually verified by the assistant.
 
 ## 8. Chat transcript
-Exported by me, without AI, and saved in `docs/` (**[FILL IN: filename and date]**).
+Exported by me, without AI, and saved in `docs/` (**[FILL IN: conversations.json and 19/11/2026]**).
