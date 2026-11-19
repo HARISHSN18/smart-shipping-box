@@ -51,4 +51,4 @@ Automated (run by the assistant, 13 tests passing):
 - The assistant did not view the pages in a real browser, so visual layout and the 3D preview were not visually verified by the assistant.
 
 ## 8. Chat transcript
-Exported by me, without AI, and saved in `docs/` (**[FILL IN: conversations.json and 19/11/2026]**).
+Exported by me from my account data export, without AI, and saved as `docs/conversations.json` on 19 November 2026. The export also contains a second chat in which I asked an AI to create a transcript file; I did not submit that file.
