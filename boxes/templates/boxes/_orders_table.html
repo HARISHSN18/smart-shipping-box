@@ -1,0 +1,7 @@
+<div class="table-responsive"><table class="table table-hover align-middle mb-0">
+<thead class="table-light"><tr><th>Order</th><th>Customer</th><th>Items</th><th>Weight</th><th>Box</th><th>Status</th><th></th></tr></thead>
+<tbody>{% for o in orders %}<tr>
+<td>#{{ o.id }}</td><td>{{ o.customer_name|default:"–" }}</td><td>{{ o.items.all|length }}</td><td>{{ o.total_weight }} kg</td>
+<td>{{ o.recommended_box.name|default:"–" }}</td><td>{% include "boxes/_status.html" %}</td>
+<td class="text-end"><a class="btn btn-sm btn-outline-primary" href="{% url 'order_detail' o.pk %}">View</a></td></tr>
+{% empty %}<tr><td colspan="7" class="text-center text-muted py-4">No orders yet. <a href="{% url 'order_create' %}">Create the first one</a>.</td></tr>{% endfor %}</tbody></table></div>

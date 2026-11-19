@@ -1,0 +1,44 @@
+{% extends "boxes/base.html" %}{% block title %}New order{% endblock %}
+{% block content %}
+<div class="card shadow-sm mx-auto" style="max-width:760px"><div class="card-body">
+<h1 class="h4 mb-3">Create order</h1>
+<form method="post" novalidate>{% csrf_token %}
+<div class="mb-3"><label class="form-label" for="{{ form.customer_name.id_for_label }}">{{ form.customer_name.label }}</label>{{ form.customer_name }}</div>
+{{ formset.management_form }}
+{% for e in formset.non_form_errors %}<div class="alert alert-danger py-2">{{ e }}</div>{% endfor %}
+<div class="row g-2 row-head mb-1"><div class="col-7 col-md-8">Product</div><div class="col-3">Quantity</div></div>
+<div id="rows">{% for f in formset %}<div class="item-row row g-2 mb-2 align-items-start">
+<div class="col-7 col-md-8">{{ f.product }}{% for e in f.product.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}</div>
+<div class="col-3">{{ f.quantity }}{% for e in f.quantity.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}</div>
+<div class="col-2 col-md-1"><button type="button" class="btn btn-outline-danger w-100 remove-row" aria-label="Remove row">&times;</button></div></div>{% endfor %}</div>
+<button type="button" class="btn btn-outline-primary btn-sm mt-1" id="add-row">+ Add row</button>
+{% if not formset.forms.0.fields.product.queryset.exists %}<div class="alert alert-warning">No products yet. <a href="{% url 'product_add' %}">Add a product</a> first.</div>{% endif %}
+<div class="mt-4 d-flex gap-2"><button class="btn btn-primary" type="submit">Create order &amp; find box</button><a class="btn btn-outline-secondary" href="{% url 'order_list' %}">Cancel</a></div>
+</form></div></div>
+{% endblock %}
+{% block scripts %}
+<template id="row-tpl"><div class="item-row row g-2 mb-2 align-items-start">
+<div class="col-7 col-md-8">{{ formset.empty_form.product }}</div><div class="col-3">{{ formset.empty_form.quantity }}</div>
+<div class="col-2 col-md-1"><button type="button" class="btn btn-outline-danger w-100 remove-row" aria-label="Remove row">&times;</button></div></div></template>
+<script>
+(function () {
+  const rows = document.getElementById("rows"), total = document.getElementById("id_items-TOTAL_FORMS"),
+        tpl = document.getElementById("row-tpl");
+  function reindex() {
+    const list = rows.querySelectorAll(".item-row");
+    list.forEach((r, i) => r.querySelectorAll("[name],[id]").forEach((el) => {
+      if (el.name) el.name = el.name.replace(/items-(\d+|__prefix__)-/, "items-" + i + "-");
+      if (el.id) el.id = el.id.replace(/items-(\d+|__prefix__)-/, "items-" + i + "-");
+    }));
+    total.value = list.length;
+    list.forEach((r) => r.querySelector(".remove-row").disabled = list.length === 1);
+  }
+  document.getElementById("add-row").onclick = () => { rows.appendChild(tpl.content.cloneNode(true)); reindex(); };
+  rows.addEventListener("click", (e) => {
+    const b = e.target.closest(".remove-row");
+    if (b && rows.children.length > 1) { b.closest(".item-row").remove(); reindex(); }
+  });
+  reindex();
+})();
+</script>
+{% endblock %}

@@ -1,0 +1,1 @@
+<span class="badge {% if o.packing_status == 'PACKED' %}text-bg-success{% elif o.packing_status == 'NO_BOX' %}text-bg-danger{% else %}text-bg-secondary{% endif %}">{{ o.get_packing_status_display }}</span>

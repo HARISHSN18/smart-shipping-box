@@ -1,0 +1,14 @@
+{% extends "boxes/base.html" %}
+{% block content %}
+<section class="hero mb-4"><h1 class="display-6">Pack every order in the right box.</h1>
+<p>Add the products in an order and ShipFit checks size, rotation and weight to pick the smallest box that fits.</p>
+<a class="btn btn-warning btn-lg" href="{% url 'order_create' %}">Create an order</a>
+<a class="btn btn-outline-light btn-lg ms-1" href="{% url 'order_list' %}">View orders</a></section>
+<div class="row g-3 mb-4">
+  <div class="col-md-4"><div class="card stat shadow-sm"><div class="card-body"><div class="text-muted">Products</div><div class="display-6">{{ n_products }}</div><a href="{% url 'product_list' %}">Manage products</a></div></div></div>
+  <div class="col-md-4"><div class="card stat shadow-sm"><div class="card-body"><div class="text-muted">Shipping boxes</div><div class="display-6">{{ n_boxes }}</div><a href="{% url 'box_list' %}">Manage boxes</a></div></div></div>
+  <div class="col-md-4"><div class="card stat shadow-sm"><div class="card-body"><div class="text-muted">Orders</div><div class="display-6">{{ n_orders }}</div><a href="{% url 'order_create' %}">Create an order</a></div></div></div>
+</div>
+<div class="card shadow-sm"><div class="card-header bg-white d-flex justify-content-between"><strong>Recent orders</strong><a href="{% url 'order_list' %}">View all</a></div>
+<div class="card-body p-0">{% include "boxes/_orders_table.html" with orders=recent %}</div></div>
+{% endblock %}
